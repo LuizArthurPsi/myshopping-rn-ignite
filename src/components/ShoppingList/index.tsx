@@ -14,9 +14,8 @@ export function ShoppingList() {
   useEffect(() => {
     firestore()
     .collection('Products')
-    .get()
-    .then(response => {
-      const data = response.docs.map(doc => {
+    .onSnapshot(querySnapshot => {
+      const data = querySnapshot.docs.map((doc) => {
         return {
           id: doc.id,
           ...doc.data()
@@ -25,7 +24,7 @@ export function ShoppingList() {
 
       setProducts(data);
     })
-    .catch(error => console.log(error));
+   
 
   },[])
 
